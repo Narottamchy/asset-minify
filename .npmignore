@@ -1,0 +1,16 @@
+# Dependency folders
+node_modules/
+
+# Dev configs
+tests/
+jest.config.js
+tsconfig.json
+tsup.config.ts
+.gitignore
+.npmignore
+.asset-minify-cache.json
+.asset-backup/
+
+# Temp files
+*.log
+.DS_Store

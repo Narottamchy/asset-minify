@@ -1,0 +1,13 @@
+# Dependency folders
+node_modules/
+
+# Local cache & backups
+.asset-minify-cache.json
+.asset-backup/
+
+# Logs and OS files
+*.log
+.DS_Store
+
+# Output bundle
+dist/
