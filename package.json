@@ -1,6 +1,6 @@
 {
   "name": "asset-minify",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A high-performance CLI tool to compress images, SVGs, and videos in-place for frontend projects.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
