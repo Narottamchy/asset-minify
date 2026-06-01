@@ -45,6 +45,14 @@
   ],
   "author": "Narottam Chy",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Narottamchy/asset-minify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Narottamchy/asset-minify/issues"
+  },
+  "homepage": "https://github.com/Narottamchy/asset-minify#readme",
   "dependencies": {
     "commander": "^11.1.0",
     "fast-glob": "^3.3.2",
