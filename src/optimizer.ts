@@ -130,24 +130,15 @@ async function optimizeImageFile(
       break;
 
     case '.png':
-      if (quality >= 100) {
-        // True lossless PNG compression
-        await pipeline
-          .png({
-            compressionLevel: 9,
-            effort: 10,
-          })
-          .toFile(outputPath);
-      } else {
-        // Near-lossless PNG compression using quantization palettes
-        await pipeline
-          .png({
-            quality,
-            palette: true,
-            compressionLevel: 8,
-          })
-          .toFile(outputPath);
-      }
+      // PNGs are optimized losslessly to preserve fine details, text, and logos,
+      // preventing generational quality loss across multiple runs.
+      await pipeline
+        .png({
+          compressionLevel: 9,
+          palette: false,
+          effort: 8,
+        })
+        .toFile(outputPath);
       break;
 
     case '.webp':

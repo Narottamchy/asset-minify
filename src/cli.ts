@@ -377,7 +377,12 @@ async function runOptimizer(cliOptions: any) {
     const result = await optimizeFile(task.filePath, rootDir, options);
 
     if (result.success && !result.skipped && options.cache && !options.dryRun) {
-      cacheManager.set(task.relativePath, task.hash, result.optimizedSize, options.quality);
+      try {
+        const postHash = await getFileHash(task.filePath);
+        cacheManager.set(task.relativePath, postHash, result.optimizedSize, options.quality);
+      } catch {
+        cacheManager.set(task.relativePath, task.hash, result.optimizedSize, options.quality);
+      }
     }
     
     if (result.success && !result.skipped) {

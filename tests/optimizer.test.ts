@@ -108,7 +108,7 @@ describe('Optimizer Engine', () => {
       expect(result.success).toBe(true);
       expect(result.skipped).toBe(false);
       expect(sharp).toHaveBeenCalledWith(pngFile, expect.any(Object));
-      expect(mockSharpInstance.png).toHaveBeenCalledWith(expect.objectContaining({ quality: 85, palette: true }));
+      expect(mockSharpInstance.png).toHaveBeenCalledWith(expect.objectContaining({ compressionLevel: 9, palette: false, effort: 8 }));
     } finally {
       if (existsSync(pngFile)) unlinkSync(pngFile);
       const tempPng = `${pngFile}.tmp.png`;
