@@ -3,35 +3,38 @@
 [![npm version](https://img.shields.io/npm/v/asset-minify.svg?style=flat-square)](https://www.npmjs.com/package/asset-minify)
 [![license](https://img.shields.io/npm/l/asset-minify.svg?style=flat-square)](https://github.com/narottamchy/asset-minify/blob/main/LICENSE)
 
-A high-performance CLI and programmatic asset optimizer designed for frontend applications (Next.js, React, Vue, Svelte, etc.).
+A high-performance, open-source CLI and programmatic asset optimizer designed for modern frontend applications (Next.js, React, Vue, Svelte, etc.).
 
-`asset-minify` compresses images, SVGs, and videos in-place using smart, visually lossless defaults, saving 50% to 90% of file size. Featuring an incremental cache system, it only processes new or modified assets, keeping subsequent runs near-instantaneous.
+`asset-minify` compresses images, SVGs, and videos in-place using smart, visually lossless defaults, saving **50% to 90%** of file size. It features a smart, incremental cache system to only process new or modified assets, making subsequent runs near-instantaneous.
 
 ---
 
 ## Features
 
-- **Incremental Cache**: Tracks file hashes and parameters to only process new or modified files.
-- **Advanced Image Compression**:
-  - **JPEGs**: Advanced MozJPEG progressive compression (visually lossless).
-  - **PNGs**: True lossless compression (quality 100) or palette-quantized near-lossless compression (quality < 100).
-  - **WebP & AVIF**: High-efficiency modern formats with visual tuning.
-  - **GIFs**: Re-compresses animated GIF frames.
-- **SVG Optimization**: Strips metadata and editor artifacts via SVGO while preserving IDs and viewBox properties.
-- **Video Transcoding**: Transcodes large videos (`.mp4`, `.webm`, `.mov`) to web-friendly H.264/AAC formats. Detects interactive shells and prompts before slow compression runs.
-- **Atomic Writes**: Writes to a temporary file before atomically replacing the original to prevent file corruption.
-- **Progress Reporting**: Minimalist, interactive terminal progress bar with automatic fallback for CI/non-TTY environments.
-- **Dual module support**: Includes full TypeScript definitions supporting both CommonJS and ES Modules.
+- **Incremental Caching**: Tracks post-optimization file hashes to prevent redundant processing.
+- **Advanced Lossless & Lossy Image Compression**:
+  - **JPEGs**: Progressive MozJPEG compression (visually lossless).
+  - **PNGs**: 100% Lossless compression by default to preserve text, icons, and logo clarity across multiple runs.
+  - **WebP & AVIF**: High-efficiency modern web formats with visual tuning.
+  - **GIFs**: Animated GIF frame-by-frame re-compression.
+  - **HEIF/HEIC & TIFF**: Built-in support for modern camera and raw formats.
+- **SVG Optimization**: Strips metadata and editor garbage via SVGO while preserving IDs and viewBox properties.
+- **Video Transcoding**: Transcodes large videos (`.mp4`, `.webm`, `.mov`) into web-friendly H.264/AAC formats.
+- **Atomic Writes**: Writes to a temporary file before atomically replacing the original, preventing corrupt files on crashes.
+- **Progress Reporting**: Custom terminal spinner and progress bar with automatic fallback for non-TTY/CI environments.
+- **Dual module support**: Full TypeScript definitions (`.d.ts`) supporting both CommonJS and ES Modules.
 
 ---
 
 ## Installation
 
+You can run the CLI on the fly without installing:
+
 ```bash
-# Run on the fly without installing (after publishing to NPM)
+# Using npx
 npx asset-minify
 
-# Or with Bun
+# Using Bun
 bunx asset-minify
 ```
 
@@ -41,76 +44,55 @@ To install as a development dependency:
 npm install asset-minify --save-dev
 ```
 
-### Local Development & Testing
+---
 
-To test the CLI locally before publishing it:
+## CLI Reference
 
-```bash
-# 1. Build the package
-bun run build
+### Commands
+| Command | Description |
+| :--- | :--- |
+| `init` | Configure scripts in `package.json` and set up Husky git pre-commit hooks. |
 
-# 2. Run the CLI directly
-node dist/cli.js --dry-run
-
-# 3. Or link the CLI globally to test the executable command anywhere on your system
-npm link
-# Now you can run `asset-minify` in any folder!
-```
+### Options
+| Option | Alias | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `--dir <path>` | `-d` | Directory containing assets to optimize | `public/` (if exists), else current directory |
+| `--quality <number>`| `-q` | Compression quality level (1-100) | `85` |
+| `--dry-run` | | Calculate savings and verify logs without modifying files | `false` |
+| `--no-cache` | | Force re-optimization of all files (disable cache) | `false` |
+| `--video` | | Force video optimization (bypasses prompt) | `false` |
+| `--yes` | `-y` | Auto-confirm all interactive prompts | `false` |
+| `--backup` | | Backup modified files in `.asset-backup/` | `false` |
+| `--exclude <globs...>`| | Exclude paths matching these glob patterns | `[]` |
+| `--verbose` | | Show detailed line-by-line path logs | `false` |
+| `--version` | `-V` | Output current CLI version | |
+| `--help` | `-h` | Display help screen | |
 
 ---
 
-## CLI Usage
-
-```text
-Usage: asset-minify [options] [command]
-
-High-performance CLI asset optimizer for frontend projects
-
-Options:
-  -V, --version            output the version number
-  -d, --dir <path>         Directory to optimize (default: public/ if exists,
-                           else current directory)
-  -q, --quality <number>   Compression quality (1-100, default: 85) (default:
-                           85)
-  --dry-run                Calculate savings without modifying files (default:
-                           false)
-  --no-cache               Force re-optimization of all files
-  --video                  Force optimization of videos (bypasses prompt)
-                           (default: false)
-  -y, --yes                Auto-confirm all interactive prompts (default:
-                           false)
-  --backup                 Create backups of modified files in .asset-backup/
-                           (default: false)
-  --exclude <patterns...>  Exclude paths matching these glob patterns
-  --verbose                Show detailed path logs during optimization
-                           (default: false)
-  -h, --help               display help for command
-
-Commands:
-  init                     Configure asset-minify inside your project
-                           package.json and git hooks
-```
-
-### Examples
+## CLI Examples
 
 ```bash
-# Dry-run to see how many megabytes you would save without writing changes
+# 1. Run a dry-run to see how many megabytes you would save
 npx asset-minify --dry-run
 
-# Compress assets inside a custom directory with 80% quality and skip video prompting
+# 2. Compress assets inside a custom directory with 80% quality and skip video prompts
 npx asset-minify --dir src/assets --quality 80 --video
 
-# Backup original files and exclude specific folders
+# 3. Backup your files and exclude specific folders
 npx asset-minify --backup --exclude "**/ignored-assets/**" "**/mock/**"
+
+# 4. Run with detailed verbose logs
+npx asset-minify --verbose
 ```
 
 ---
 
 ## Git Pre-Commit Hook Integration
 
-To prevent unoptimized assets from being pushed to Git, you can automate this using Git hooks.
+To prevent heavy, unoptimized assets from being committed to Git, you can automate this process.
 
-Run the configuration wizard:
+Run the automatic configuration wizard:
 ```bash
 npx asset-minify init
 ```
@@ -146,7 +128,7 @@ npx asset-minify init
 You can import and use `asset-minify` directly in Node.js scripts:
 
 ```typescript
-import { optimizeFile, CacheManager, formatBytes } from 'asset-minify';
+import { optimizeFile, formatBytes } from 'asset-minify';
 
 const result = await optimizeFile('/absolute/path/to/image.png', '/project/root', {
   dir: '/project/root/public',
@@ -165,9 +147,11 @@ if (result.success && !result.skipped) {
 
 ---
 
-## Contributing
+## Contributing & Open Source
 
-Contributions are welcome! Please check the [Contributing Guidelines](file:///Users/narottamchy/Move37/Brainstrata/packages/asset-minify/CONTRIBUTING.md) for instructions on setting up local development, running tests, and submitting changes.
+This project is open-source. Contributions, issues, and feature requests are welcome!
+
+Please check the [Contributing Guidelines](file:///Users/narottamchy/Move37/Brainstrata/packages/asset-minify/CONTRIBUTING.md) for local development setup, test execution guides, and NPM release instructions.
 
 ---
 
