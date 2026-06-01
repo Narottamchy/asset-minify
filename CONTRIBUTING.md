@@ -50,7 +50,7 @@ npm link
 
 ## Maintainer Guide: Releasing to NPM
 
-If you are a maintainer publishing updates to the public NPM registry under `@narottamchy/asset-minify`, follow these steps:
+If you are a maintainer publishing updates to the public NPM registry under `asset-minify`, follow these steps:
 
 ### 1. Versioning
 Increment the version using Semantic Versioning commands:
@@ -61,7 +61,7 @@ npm version major # Breaking changes (1.0.0 -> 2.0.0)
 ```
 
 ### 2. Publishing
-Log in to your NPM account and publish the scoped public package using your authenticator (2FA) OTP code:
+Log in to your NPM account and publish the package using your authenticator (2FA) OTP code:
 ```bash
 # Log in (if not already authenticated)
 npm login
@@ -69,8 +69,8 @@ npm login
 # Build package
 bun run build
 
-# Publish package publicly
-npm publish --access public --otp=YOUR_2FA_CODE
+# Publish package
+npm publish --otp=YOUR_2FA_CODE
 ```
 
 ### 3. Git Tags

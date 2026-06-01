@@ -1,5 +1,5 @@
 {
-  "name": "@narottamchy/asset-minify",
+  "name": "asset-minify",
   "version": "1.0.2",
   "description": "A high-performance CLI tool to compress images, SVGs, and videos in-place for frontend projects.",
   "main": "./dist/index.js",

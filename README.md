@@ -1,7 +1,7 @@
 # asset-minify
 
-[![npm version](https://img.shields.io/npm/v/@narottamchy/asset-minify.svg?style=flat-square)](https://www.npmjs.com/package/@narottamchy/asset-minify)
-[![license](https://img.shields.io/npm/l/@narottamchy/asset-minify.svg?style=flat-square)](https://github.com/narottamchy/asset-minify/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/asset-minify.svg?style=flat-square)](https://www.npmjs.com/package/asset-minify)
+[![license](https://img.shields.io/npm/l/asset-minify.svg?style=flat-square)](https://github.com/narottamchy/asset-minify/blob/main/LICENSE)
 
 A high-performance CLI and programmatic asset optimizer designed for frontend applications (Next.js, React, Vue, Svelte, etc.).
 
@@ -29,16 +29,16 @@ A high-performance CLI and programmatic asset optimizer designed for frontend ap
 
 ```bash
 # Run on the fly without installing (after publishing to NPM)
-npx @narottamchy/asset-minify
+npx asset-minify
 
 # Or with Bun
-bunx @narottamchy/asset-minify
+bunx asset-minify
 ```
 
 To install as a development dependency:
 
 ```bash
-npm install @narottamchy/asset-minify --save-dev
+npm install asset-minify --save-dev
 ```
 
 ### Local Development & Testing
@@ -143,10 +143,10 @@ npx asset-minify init
 
 ## Programmatic API
 
-You can import and use `@narottamchy/asset-minify` directly in Node.js scripts:
+You can import and use `asset-minify` directly in Node.js scripts:
 
 ```typescript
-import { optimizeFile, CacheManager, formatBytes } from '@narottamchy/asset-minify';
+import { optimizeFile, CacheManager, formatBytes } from 'asset-minify';
 
 const result = await optimizeFile('/absolute/path/to/image.png', '/project/root', {
   dir: '/project/root/public',
