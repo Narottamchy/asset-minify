@@ -165,32 +165,9 @@ if (result.success && !result.skipped) {
 
 ---
 
-## Publishing to NPM
+## Contributing
 
-If you are maintaining or deploying this package, follow these steps:
-
-### 1. Build Verification
-Verify that the package builds cleanly with ESM and CommonJS outputs:
-```bash
-npm run build
-```
-This outputs the bundle files to the `dist/` directory.
-
-### 2. Version Updates
-Increment the version using Semantic Versioning commands:
-```bash
-npm version patch # Bug fixes (1.0.0 -> 1.0.1)
-npm version minor # New features (1.0.0 -> 1.1.0)
-npm version major # Breaking changes (1.0.0 -> 2.0.0)
-```
-
-### 3. NPM Publication
-Ensure you are logged in to the registry, then publish:
-```bash
-npm login
-npm publish
-```
-*(For scoped packages, use `npm publish --access public`)*.
+Contributions are welcome! Please check the [Contributing Guidelines](file:///Users/narottamchy/Move37/Brainstrata/packages/asset-minify/CONTRIBUTING.md) for instructions on setting up local development, running tests, and submitting changes.
 
 ---
 
